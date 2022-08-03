@@ -22,7 +22,7 @@
 
  1. プラグインをダウンロード
  2. お使いのパソコン等で解凍
- 3. FTPソフトを使用して、解凍されたzipファイルの中にある`check.php`をサーバーのホームディレクトリ（`wp-admin`、`wp-content`等のフォルダや`wp-load.php`がある階層へアップロードする。
+ 3. FTPソフトを使用して、解凍されたzipファイルの中にある`check.php`をサーバーのホームディレクトリ（`wp-admin`、`wp-content`等のフォルダや`wp-load.php`がある階層へアップロードする。（例・example.comであれば、example.com/check.php）
  4. パソコンから`check.php`を削除する
  5. `check.php`を除いた`Readme.md`と`plugin.php`の入った`AllsubmitPsts`フォルダーをお使いのパソコンでzip圧縮する。
  6. WordPressのプラグイン新規追加ページに移動
