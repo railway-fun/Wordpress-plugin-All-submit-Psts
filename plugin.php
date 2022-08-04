@@ -79,6 +79,7 @@ if (!defined('MY_PLUGIN_URL')) {
             'post_type' => 'post',
             'post_status' => 'draft',
             'posts_per_page' => -1,
+			'order' => 'ASC',
         );
       $query_instance = new WP_Query($args);
       ?>
@@ -137,16 +138,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 function auto_set_category ( $post_id ) {
   global $post;
   $new_post = get_post( $post_id );
-  $content = urldecode($new_post->post_title.$new_post->post_content);
+  $content = urldecode($new_post->post_title);
  
 $cat_all = get_terms( "category", "fields=all&get=all" );
 foreach($cat_all as $value):
   if ( stripos( $content, $value->name ) !== false ) {
     wp_remove_object_terms( $post_id, 1, 'category' );
     wp_add_object_terms( $post_id, $value->name, 'category' );
+		$cat_cat = get_category($value->term_id);
+		if ($cat_cat->category_parent) {
+			$parent_id = $cat_cat->category_parent;
+			$parent_data = get_category($parent_id);
+			$parent_term_id = $parent_data->term_id;
+			wp_add_object_terms( $post_id, $parent_term_id, 'category' );
+		}
 }
-  else { wp_remove_object_terms( $post_id, $value->name, 'category' ); 
-}
+  //else { wp_remove_object_terms( $post_id, $value->name, 'category' ); 
+//}
 endforeach;
 
 $catcheck = get_the_category($post_id);
